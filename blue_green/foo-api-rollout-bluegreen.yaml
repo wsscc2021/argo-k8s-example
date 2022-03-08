@@ -14,7 +14,7 @@ spec:
         app.kubernetes.io/name: foo-api
     spec:
       containers:
-        - image: 242593025403.dkr.ecr.us-east-1.amazonaws.com/foo-api:v2
+        - image: 242593025403.dkr.ecr.us-east-1.amazonaws.com/foo-api:v3
           name: foo-api
           ports:
             - containerPort: 5000
