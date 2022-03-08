@@ -25,5 +25,5 @@ spec:
         paths:
           - path: /*
             backend:
-              serviceName: foo-api-svc-stable
+              serviceName: foo-api-svc-active
               servicePort: use-annotation # must be the value: use-annotation
