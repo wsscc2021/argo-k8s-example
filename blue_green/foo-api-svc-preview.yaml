@@ -13,6 +13,6 @@ spec:
     # service의 파드 셀렉터는 엔드포인트 목록을 만드는 데 사용됩니다.
   ports:
     - protocol: TCP
-      port: 80 # 서비스 내부의 clsuterip 포트번호
+      port: 8080 # 서비스 내부의 clsuterip 포트번호
       targetPort: 5000 # pod의 포트번호
       nodePort: 30124 # 클러스터 노드의 포트 30123으로 서비스에 액세스 가능
