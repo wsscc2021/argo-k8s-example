@@ -22,6 +22,7 @@ metadata:
     alb.ingress.kubernetes.io/healthy-threshold-count: '2' # minimum 2
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
     # alb.ingress.kubernetes.io/backend-protocol-version: HTTP2
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 80}]'
 spec:
   rules:
     - http:
@@ -55,6 +56,7 @@ metadata:
     alb.ingress.kubernetes.io/healthy-threshold-count: '2' # minimum 2
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
     # alb.ingress.kubernetes.io/backend-protocol-version: HTTP2
+    alb.ingress.kubernetes.io/listen-ports: '[{"HTTP": 8080}]'
 spec:
   rules:
     - http:
