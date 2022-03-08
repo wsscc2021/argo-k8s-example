@@ -32,6 +32,31 @@ spec:
       # to target the canary ReplicaSet and stable ReplicaSet respectively (required).
       canaryService: foo-api-svc-canary
       stableService: foo-api-svc-stable
+      # The maximum number of pods that can be unavailable during the update.
+      maxUnavailable: 1
+      # The maximum number of pods that can be scheduled above the original number of pods.
+      maxSurge: "20%"
+      # Adds a delay before scaling down the previous ReplicaSet when the
+      # canary strategy is used with traffic routing (default 30 seconds).
+      scaleDownDelaySeconds: 30
+      # Steps define sequence of steps to take during an update of the
+      # canary. Skipped upon initial deploy of a rollout. +optional
+      steps:
+        # Sets the ratio of canary ReplicaSet to 10%
+        - setWeight: 10
+        # set canary scale to a percentage of spec.replicas without changing traffic weight
+        # (supported only with trafficRouting)
+        - setCanaryScale:
+            weight: 10
+        # Pauses the rollout for an hour. Supported units: s, m, h
+        - pause:
+            duration: 5m
+        # Pauses indefinitely until manually resumed
+        - pause: {}
+        # set canary scale to match the canary traffic weight (default behavior)
+        - setCanaryScale:
+            matchTrafficWeight: true
+      # traffic routing with aws load balancer
       trafficRouting:
         alb:
           # The referenced ingress will be injected with a custom action annotation, directing
