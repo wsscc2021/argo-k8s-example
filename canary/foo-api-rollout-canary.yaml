@@ -1,0 +1,45 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Rollout
+metadata:
+  name: foo-api
+  namespace: dev
+spec:
+  replicas: 6
+  selector:
+    matchLabels: # https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/common-labels/
+      app.kubernetes.io/name: foo-api
+  template:
+    metadata:
+      labels:
+        app.kubernetes.io/name: foo-api
+    spec:
+      containers:
+        - image: 242593025403.dkr.ecr.us-east-1.amazonaws.com/foo-api:v1
+          name: foo-api
+          ports:
+            - containerPort: 5000
+          resources:
+            limits:
+              cpu: 820m
+              memory: 3000Mi
+            requests:
+              cpu: 820m
+              memory: 3000Mi
+      terminationGracePeriodSeconds: 60
+  strategy:
+    canary:
+      # canaryService and stableService are references to Services which the Rollout will modify
+      # to target the canary ReplicaSet and stable ReplicaSet respectively (required).
+      canaryService: foo-api-svc-canary
+      stableService: foo-api-svc-stable
+      trafficRouting:
+        alb:
+          # The referenced ingress will be injected with a custom action annotation, directing
+          # the AWS Load Balancer Controller to split traffic between the canary and stable
+          # Service, according to the desired traffic weight (required).
+          ingress: ingress-alb
+          # Reference to a Service that the Ingress must target in one of the rules (optional).
+          # If omitted, uses canary.stableService.
+          # rootService: foo-api-svc-root
+          # Service port is the port which the Service listens on (required).
+          servicePort: 80

@@ -18,11 +18,12 @@ metadata:
     alb.ingress.kubernetes.io/healthcheck-interval-seconds: '10'
     alb.ingress.kubernetes.io/healthy-threshold-count: '2' # minimum 2
     alb.ingress.kubernetes.io/unhealthy-threshold-count: '3'
+    # alb.ingress.kubernetes.io/backend-protocol-version: HTTP2
 spec:
   rules:
     - http:
         paths:
           - path: /*
             backend:
-              serviceName: foo-api-svc-nodeport
-              servicePort: 80 # nodeport가 아닌, 서비스 포트번호를 작성합니다.
+              serviceName: foo-api-svc-stable
+              servicePort: use-annotation # must be the value: use-annotation
