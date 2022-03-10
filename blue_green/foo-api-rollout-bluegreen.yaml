@@ -4,7 +4,6 @@ metadata:
   name: foo-api
   namespace: dev
 spec:
-  replicas: 6
   selector:
     matchLabels: # https://kubernetes.io/ko/docs/concepts/overview/working-with-objects/common-labels/
       app.kubernetes.io/name: foo-api
