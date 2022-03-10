@@ -19,7 +19,7 @@ spec:
 
   # Source of the application manifests
   source:
-    repoURL: https://github.com/wsscc2021/argocd-demo-k8s
+    repoURL: https://github.com/wsscc2021/argo-k8s-example
     targetRevision: base
     path: base/
 
